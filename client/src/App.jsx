@@ -1,18 +1,38 @@
+import { useState } from "react";
+
 import "./App.scss";
 
 function App() {
+  const [name, setName] = useState("");
+  const [datetime, setDatetime] = useState("");
+  const [description, setDescription] = useState("");
+
   return (
     <main>
       <h1>
         $400<span>.00</span>
       </h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="basic">
-          <input type="text" placeholder={"+200 new samsung tv"} />
-          <input type="datetime-local" />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={"+200 new samsung tv"}
+          />
+          <input
+            type="datetime-local"
+            value={datetime}
+            onChange={(e) => setDatetime(e.target.value)}
+          />
         </div>
         <div className="description">
-          <input type="text" placeholder={"description"} />
+          <input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder={"description"}
+          />
         </div>
         <button type="submit">Add new transaction</button>
       </form>
