@@ -5,6 +5,12 @@ import "./style.scss";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
+// const expenseOrIncome = (data?.price) => {
+//     const sign = data?.price.split("$")[0];
+//     if(sign === "-") return "red";
+//     return "green";
+//   }
+
 const Transactions = () => {
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
@@ -25,7 +31,13 @@ const Transactions = () => {
               <div className="description">{item.description}</div>
             </div>
             <div className="right">
-              <div className="price green">{item.price}</div>
+              <div
+                className={`price ${
+                  item?.price.split("$")[0] === "-" ? "red" : "green"
+                }`}
+              >
+                {item.price}
+              </div>
               <div className="datetime">{item.createdAt}</div>
             </div>
           </div>
