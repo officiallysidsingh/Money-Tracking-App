@@ -10,6 +10,7 @@ import Transactions from "./components/transactions/Transactions";
 
 function App() {
   const [balance, setBalance] = useState(0);
+  const [allData, setAllData] = useState(null);
 
   return (
     <div className="app">
@@ -20,9 +21,9 @@ function App() {
         <span>.00</span>
       </h1>
 
-      <FormComponent />
+      <FormComponent allData={allData} />
 
-      <Transactions setBalance={setBalance} />
+      <Transactions setBalance={setBalance} setAllData={setAllData} />
     </div>
   );
 }
