@@ -1,11 +1,11 @@
 // SWR
-import useSWR, { mutate } from "swr";
-
-//Axios
-import axios from "axios";
+import useSWR from "swr";
 
 // React Hooks
 import { useEffect } from "react";
+
+// Custom Components
+import DeleteComponent from "../deleteComponent/DeleteComponent";
 
 // Stylesheet
 import "./style.scss";
@@ -33,13 +33,6 @@ const Transactions = ({ setBalance }) => {
     }
   }, [data]);
 
-  //Handling Delete Request
-  const handleDelete = async (e) => {
-    let id = e;
-    await axios.delete(`http://localhost:3000/api/transaction/${id}`);
-    mutate("http://localhost:3000/api/transaction");
-  };
-
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
@@ -60,9 +53,7 @@ const Transactions = ({ setBalance }) => {
               <div className="datetime">{item.createdAt}</div>
             </div>
             <div>
-              <div className="delete" onClick={() => handleDelete(item._id)}>
-                Delete
-              </div>
+              <DeleteComponent id={item._id} />
             </div>
           </div>
         </div>
