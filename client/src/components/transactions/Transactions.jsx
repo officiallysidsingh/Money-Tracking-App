@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const Transactions = ({ setBalance }) => {
+const Transactions = ({ setBalance, setAllData }) => {
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
     fetcher
@@ -18,6 +18,7 @@ const Transactions = ({ setBalance }) => {
         total += item.price;
       });
       setBalance(total);
+      setAllData(data);
     }
   }, [data]);
 
