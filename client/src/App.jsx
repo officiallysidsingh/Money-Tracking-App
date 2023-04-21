@@ -1,5 +1,8 @@
+// SWR
+import useSWR from "swr";
+
 //React Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Stylesheet
 import "./App.scss";
@@ -8,9 +11,28 @@ import "./App.scss";
 import FormComponent from "./components/formComponent/FormComponent";
 import Transactions from "./components/transactions/Transactions";
 
+// Fetcher Function
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 function App() {
-  const [balance, setBalance] = useState(0);
   const [allData, setAllData] = useState(null);
+  const [balance, setBalance] = useState(0);
+
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:3000/api/transaction",
+    fetcher
+  );
+
+  useEffect(() => {
+    if (data) {
+      let total = 0;
+      data.forEach((item) => {
+        total += item.price;
+      });
+      setBalance(total);
+      setAllData(data);
+    }
+  }, [data]);
 
   return (
     <div className="app">
@@ -21,9 +43,9 @@ function App() {
         <span>.00</span>
       </h1>
 
-      <FormComponent allData={allData} />
+      <FormComponent />
 
-      <Transactions setBalance={setBalance} setAllData={setAllData} />
+      <Transactions allData={allData} isLoading={isLoading} error={error} />
     </div>
   );
 }

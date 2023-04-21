@@ -1,34 +1,17 @@
-// SWR
-import useSWR from "swr";
-
-import "./style.scss";
+// React Hooks
 import { useEffect } from "react";
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+// Stylesheet
+import "./style.scss";
 
-const Transactions = ({ setBalance, setAllData }) => {
-  const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/api/transaction",
-    fetcher
-  );
-  useEffect(() => {
-    if (data) {
-      let total = 0;
-      data.forEach((item) => {
-        total += item.price;
-      });
-      setBalance(total);
-      setAllData(data);
-    }
-  }, [data]);
-
+const Transactions = ({ allData, isLoading, error }) => {
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
 
   return (
     <>
-      {data?.map((item) => (
+      {allData?.map((item) => (
         <div className="transactions" key={item._id}>
           <div className="transaction">
             <div className="left">

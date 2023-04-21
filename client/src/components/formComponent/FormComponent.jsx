@@ -1,14 +1,37 @@
+// SWR
+import { mutate } from "swr";
+
+// React Hooks
 import { useState } from "react";
 
+// Stylesheet
 import "./style.scss";
 
 const FormComponent = () => {
   const [name, setName] = useState("");
-  const [datetime, setDatetime] = useState("");
+  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
-  function addNewTransaction(e) {
+  async function addNewTransaction(e) {
     e.preventDefault();
+
+    let priceToNumber = Number(price);
+
+    // Mutating the data
+    mutate();
+
+    //Post the data to the server
+    await fetch("http://localhost:3000/api/transaction", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        price: priceToNumber,
+        description: description,
+      }),
+    });
   }
   return (
     <form onSubmit={addNewTransaction}>
@@ -17,12 +40,13 @@ const FormComponent = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={"+200 new samsung tv"}
+          placeholder={"Samsung TV"}
         />
         <input
-          type="datetime-local"
-          value={datetime}
-          onChange={(e) => setDatetime(e.target.value)}
+          type="text"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          placeholder={"200"}
         />
       </div>
       <div className="description">
@@ -30,7 +54,7 @@ const FormComponent = () => {
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder={"description"}
+          placeholder={"Bought A New TV"}
         />
       </div>
       <button type="submit">Add new transaction</button>
