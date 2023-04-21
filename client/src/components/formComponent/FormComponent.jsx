@@ -1,11 +1,12 @@
-// SWR
-import { mutate } from "swr";
+//Axios
+import axios from "axios";
 
 // React Hooks
 import { useState } from "react";
 
 // Stylesheet
 import "./style.scss";
+import { mutate } from "swr";
 
 const FormComponent = () => {
   const [name, setName] = useState("");
@@ -17,22 +18,15 @@ const FormComponent = () => {
 
     let priceToNumber = Number(price);
 
-    // Mutating the data
-    mutate();
-
     //Post the data to the server
-    await fetch("http://localhost:3000/api/transaction", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        price: priceToNumber,
-        description: description,
-      }),
+    await axios.post("http://localhost:3000/api/transaction", {
+      name: name,
+      price: priceToNumber,
+      description: description,
     });
+    mutate("http://localhost:3000/api/transaction");
   }
+
   return (
     <form onSubmit={addNewTransaction}>
       <div className="basic">

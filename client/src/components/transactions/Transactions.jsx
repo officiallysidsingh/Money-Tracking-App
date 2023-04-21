@@ -1,17 +1,42 @@
+// SWR
+import useSWR from "swr";
+
 // React Hooks
 import { useEffect } from "react";
 
 // Stylesheet
 import "./style.scss";
 
-const Transactions = ({ allData, isLoading, error }) => {
+// getTransactions Fetcher Function to get all the transaction records
+const getTransactions = (url) => fetch(url).then((res) => res.json());
+
+const Transactions = ({ setBalance }) => {
+  const { data, error, isLoading } = useSWR(
+    "http://localhost:3000/api/transaction",
+    getTransactions,
+    {
+      onSuccess: (data) =>
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      let total = 0;
+      data.forEach((item) => {
+        total += item.price;
+      });
+      setBalance(total);
+    }
+  }, [data]);
+
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
 
   return (
     <>
-      {allData?.map((item) => (
+      {data?.map((item) => (
         <div className="transactions" key={item._id}>
           <div className="transaction">
             <div className="left">
