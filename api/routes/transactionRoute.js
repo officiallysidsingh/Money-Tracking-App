@@ -8,6 +8,6 @@ const {
 
 router.get("/transaction", getTransaction);
 router.post("/transaction", addTransaction);
-router.delete("/transaction", deleteTransaction);
+router.delete("/transaction/:id", deleteTransaction);
 
 module.exports = router;

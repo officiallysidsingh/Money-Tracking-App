@@ -21,16 +21,16 @@ const addTransaction = asyncHandler(async (req, res) => {
 });
 
 const deleteTransaction = asyncHandler(async (req, res) => {
-  console.log("Deleted Transaction");
-  const { id } = req.body;
-  const transactionId = await Transaction.findById(id);
-  if (transactionId) {
-    await Transaction.deleteOne({ _id: id });
-    res.json({ message: "Transaction removed" });
-  } else {
+  const transaction = await Transaction.findById(req.params.id);
+
+  if (!transaction) {
     res.status(404);
-    throw new Error("Transaction not found");
+    throw new Error("Contact not found!");
   }
+  await Transaction.deleteOne({ _id: req.params.id });
+  res.status(200).json({ message: "Deleted Transaction" });
+
+  console.log("Deleted Transaction");
 });
 
 module.exports = { getTransaction, addTransaction, deleteTransaction };
