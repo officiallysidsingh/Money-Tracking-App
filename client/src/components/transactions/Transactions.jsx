@@ -2,20 +2,24 @@
 import useSWR from "swr";
 
 import "./style.scss";
+import { useEffect } from "react";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-// const expenseOrIncome = (data?.price) => {
-//     const sign = data?.price.split("$")[0];
-//     if(sign === "-") return "red";
-//     return "green";
-//   }
-
-const Transactions = () => {
+const Transactions = ({ setBalance }) => {
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
     fetcher
   );
+  useEffect(() => {
+    if (data) {
+      let total = 0;
+      data.forEach((item) => {
+        total += item.price;
+      });
+      setBalance(total);
+    }
+  }, [data]);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -31,12 +35,8 @@ const Transactions = () => {
               <div className="description">{item.description}</div>
             </div>
             <div className="right">
-              <div
-                className={`price ${
-                  item?.price.split("$")[0] === "-" ? "red" : "green"
-                }`}
-              >
-                {item.price}
+              <div className={`price ${item.price > 0 ? "green" : "red"}`}>
+                {item.price < 0 ? "-" : ""} &#8377;{Math.abs(item.price)}
               </div>
               <div className="datetime">{item.createdAt}</div>
             </div>
