@@ -50,7 +50,9 @@ const Transactions = ({ setBalance }) => {
               <div className={`price ${item.price > 0 ? "green" : "red"}`}>
                 {item.price < 0 ? "-" : ""} &#8377;{Math.abs(item.price)}
               </div>
-              <div className="datetime">{item.createdAt}</div>
+              <div className="datetime">
+                {new Date(item.createdAt).toLocaleString()}
+              </div>
             </div>
             <div>
               <DeleteComponent id={item._id} />
