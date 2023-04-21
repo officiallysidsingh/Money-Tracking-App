@@ -10,7 +10,7 @@ const getTransaction = asyncHandler(async (req, res) => {
 });
 
 const addTransaction = asyncHandler(async (req, res) => {
-  console.log("addTransaction");
+  console.log("Added Transaction");
   const { name, price, description } = req.body;
   const transaction = await Transaction.create({
     name,
@@ -20,4 +20,17 @@ const addTransaction = asyncHandler(async (req, res) => {
   res.json(transaction);
 });
 
-module.exports = { getTransaction, addTransaction };
+const deleteTransaction = asyncHandler(async (req, res) => {
+  console.log("Deleted Transaction");
+  const { id } = req.body;
+  const transactionId = await Transaction.findById(id);
+  if (transactionId) {
+    await Transaction.deleteOne({ _id: id });
+    res.json({ message: "Transaction removed" });
+  } else {
+    res.status(404);
+    throw new Error("Transaction not found");
+  }
+});
+
+module.exports = { getTransaction, addTransaction, deleteTransaction };
