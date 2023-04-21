@@ -1,3 +1,6 @@
+//SWR
+import { mutate } from "swr";
+
 //Axios
 import axios from "axios";
 
@@ -6,7 +9,6 @@ import { useState } from "react";
 
 // Stylesheet
 import "./style.scss";
-import { mutate } from "swr";
 
 const FormComponent = () => {
   const [name, setName] = useState("");

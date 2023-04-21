@@ -1,5 +1,8 @@
 // SWR
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
+
+//Axios
+import axios from "axios";
 
 // React Hooks
 import { useEffect } from "react";
@@ -30,6 +33,13 @@ const Transactions = ({ setBalance }) => {
     }
   }, [data]);
 
+  //Handling Delete Request
+  const handleDelete = async (e) => {
+    let id = e;
+    await axios.delete(`http://localhost:3000/api/transaction/${id}`);
+    mutate("http://localhost:3000/api/transaction");
+  };
+
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>Error...</div>;
@@ -48,6 +58,11 @@ const Transactions = ({ setBalance }) => {
                 {item.price < 0 ? "-" : ""} &#8377;{Math.abs(item.price)}
               </div>
               <div className="datetime">{item.createdAt}</div>
+            </div>
+            <div>
+              <div className="delete" onClick={() => handleDelete(item._id)}>
+                Delete
+              </div>
             </div>
           </div>
         </div>
