@@ -2,13 +2,16 @@ const asyncHandler = require("express-async-handler");
 const Transaction = require("../models/transactionModel");
 
 // @desc    Get all transactions
-// @route   GET /api/transactions
+// @route   GET /api/transaction
 // @access  Public
 const getTransaction = asyncHandler(async (req, res) => {
   const transactions = await Transaction.find();
   res.status(200).json(transactions);
 });
 
+// @desc    Add a transactions
+// @route   POST /api/transaction
+// @access  Public
 const addTransaction = asyncHandler(async (req, res) => {
   console.log("Added Transaction");
   const { name, price, description } = req.body;
@@ -20,6 +23,9 @@ const addTransaction = asyncHandler(async (req, res) => {
   res.json(transaction);
 });
 
+// @desc    Delete a transactions
+// @route   DELETE /api/transaction/:id
+// @access  Public
 const deleteTransaction = asyncHandler(async (req, res) => {
   const transaction = await Transaction.findById(req.params.id);
 
