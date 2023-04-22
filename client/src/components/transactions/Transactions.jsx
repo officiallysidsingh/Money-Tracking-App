@@ -1,3 +1,6 @@
+// Axios
+import axios from "axios";
+
 // SWR
 import useSWR from "swr";
 
@@ -5,8 +8,8 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 
 // Custom Components
-import EditComponent from "../editComponent/EditComponent";
-import DeleteComponent from "../deleteComponent/DeleteComponent";
+import EditComponent from "../editButton/EditButton";
+import DeleteComponent from "../deleteButton/DeleteButton";
 import EditForm from "../editForm/EditForm";
 
 // Stylesheet
@@ -17,6 +20,7 @@ const getTransactions = (url) => fetch(url).then((res) => res.json());
 
 const Transactions = ({ setBalance }) => {
   const [openEdit, setOpenEdit] = useState(false);
+  const [formId, setFormId] = useState("");
 
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
@@ -44,7 +48,13 @@ const Transactions = ({ setBalance }) => {
   return (
     <>
       <div className="editFormContainer">
-        <EditForm openEdit={openEdit} setOpenEdit={setOpenEdit} />
+        <EditForm
+          openEdit={openEdit}
+          setOpenEdit={setOpenEdit}
+          formId={formId}
+          setFormId={setFormId}
+          data={data}
+        />
       </div>
       {data?.map((item) => (
         <div
@@ -54,7 +64,11 @@ const Transactions = ({ setBalance }) => {
           <div className="transaction">
             <div className="left">
               <div className="editComponent">
-                <EditComponent setOpenEdit={setOpenEdit} />
+                <EditComponent
+                  setOpenEdit={setOpenEdit}
+                  id={item._id}
+                  setFormId={setFormId}
+                />
               </div>
               <div className="name">{item.name}</div>
               <div className="description">{item.description}</div>
