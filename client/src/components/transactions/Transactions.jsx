@@ -2,11 +2,12 @@
 import useSWR from "swr";
 
 // React Hooks
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // Custom Components
 import EditComponent from "../editComponent/EditComponent";
 import DeleteComponent from "../deleteComponent/DeleteComponent";
+import EditForm from "../editForm/EditForm";
 
 // Stylesheet
 import "./style.scss";
@@ -15,6 +16,8 @@ import "./style.scss";
 const getTransactions = (url) => fetch(url).then((res) => res.json());
 
 const Transactions = ({ setBalance }) => {
+  const [openEdit, setOpenEdit] = useState(false);
+
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
     getTransactions,
@@ -40,17 +43,18 @@ const Transactions = ({ setBalance }) => {
 
   return (
     <>
+      <div className="editFormContainer">
+        <EditForm openEdit={openEdit} setOpenEdit={setOpenEdit} />
+      </div>
       {data?.map((item) => (
-        <div className="transactions" key={item._id}>
+        <div
+          className={`transactions ${openEdit ? "hide" : ""}`}
+          key={item._id}
+        >
           <div className="transaction">
             <div className="left">
               <div className="editComponent">
-                <EditComponent
-                  id={item._id}
-                  name={item.name}
-                  description={item.description}
-                  price={item.price}
-                />
+                <EditComponent setOpenEdit={setOpenEdit} />
               </div>
               <div className="name">{item.name}</div>
               <div className="description">{item.description}</div>

@@ -1,0 +1,37 @@
+.editFormCard {
+  border: 2px solid #30313d;
+  padding: 2rem;
+  display: none;
+  &.show {
+    display: block;
+  }
+  form {
+    margin-top: 20px;
+    div {
+      &.basic {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        background-color: transparent;
+        color: #ddd;
+        border: 2px solid #30313d;
+        padding: 2px 5px;
+        border-radius: 5px;
+        &[type="datetime-local"] {
+          color: #777;
+        }
+      }
+    }
+    button {
+      width: 100%;
+      margin-top: 5px;
+      border: 0;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: #ddd;
+    }
+  }
+}

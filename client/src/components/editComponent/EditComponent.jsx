@@ -7,15 +7,10 @@ import { MdEditNote } from "react-icons/md";
 // Stylesheet
 import "./style.scss";
 
-const EditComponent = ({ id }) => {
-  const handleEdit = (id) => {
-    // axios.put(`http://localhost:3000/api/transaction/${id}`);
-    console.log(`Edit ${id}`);
-  };
-
+const EditComponent = ({ setOpenEdit }) => {
   return (
     <>
-      <button className="edit" onClick={() => handleEdit(id)}>
+      <button className="edit" onClick={() => setOpenEdit((prev) => !prev)}>
         <MdEditNote color="#ddd" />
       </button>
     </>
