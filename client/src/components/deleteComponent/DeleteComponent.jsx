@@ -12,8 +12,7 @@ import "./style.scss";
 
 const DeleteComponent = ({ id }) => {
   //Handling Delete Request
-  const handleDelete = async (e) => {
-    let id = e;
+  const handleDelete = async (id) => {
     await axios.delete(`http://localhost:3000/api/transaction/${id}`);
     mutate("http://localhost:3000/api/transaction");
   };

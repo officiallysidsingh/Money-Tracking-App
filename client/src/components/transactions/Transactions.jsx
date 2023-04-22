@@ -45,7 +45,12 @@ const Transactions = ({ setBalance }) => {
           <div className="transaction">
             <div className="left">
               <div className="editComponent">
-                <EditComponent id={item._id} />
+                <EditComponent
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  price={item.price}
+                />
               </div>
               <div className="name">{item.name}</div>
               <div className="description">{item.description}</div>
