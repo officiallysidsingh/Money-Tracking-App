@@ -4,4 +4,5 @@
 body {
   background-color: #17181f;
   color: #ddd;
+  min-width: 538px;
 }

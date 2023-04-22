@@ -3,12 +3,16 @@
   .transaction {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 1.5rem 0 5px 0;
     border-top: 1px solid #30313d;
     &:first-child {
       border-top: 0;
     }
     .left {
+      .editComponent {
+        margin-top: -1.7rem;
+        margin-left: -1.3rem;
+      }
       .name {
         font-size: 1rem;
       }
@@ -19,6 +23,10 @@
     }
     .right {
       text-align: right;
+      .deleteComponent {
+        margin-top: -1.7rem;
+        margin-right: -1.3rem;
+      }
       .price {
         &.green {
           color: #1c1;

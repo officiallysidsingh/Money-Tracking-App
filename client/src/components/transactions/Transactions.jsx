@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 
 // Custom Components
+import EditComponent from "../editComponent/EditComponent";
 import DeleteComponent from "../deleteComponent/DeleteComponent";
 
 // Stylesheet
@@ -43,19 +44,22 @@ const Transactions = ({ setBalance }) => {
         <div className="transactions" key={item._id}>
           <div className="transaction">
             <div className="left">
+              <div className="editComponent">
+                <EditComponent id={item._id} />
+              </div>
               <div className="name">{item.name}</div>
               <div className="description">{item.description}</div>
             </div>
             <div className="right">
+              <div className="deleteComponent">
+                <DeleteComponent id={item._id} />
+              </div>
               <div className={`price ${item.price > 0 ? "green" : "red"}`}>
                 {item.price < 0 ? "-" : ""} &#8377;{Math.abs(item.price)}
               </div>
               <div className="datetime">
                 {new Date(item.createdAt).toLocaleString()}
               </div>
-            </div>
-            <div>
-              <DeleteComponent id={item._id} />
             </div>
           </div>
         </div>
