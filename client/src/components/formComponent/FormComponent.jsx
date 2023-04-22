@@ -27,6 +27,9 @@ const FormComponent = () => {
       description: description,
     });
     mutate("http://localhost:3000/api/transaction");
+    setName("");
+    setPrice("");
+    setDescription("");
   }
 
   return (
