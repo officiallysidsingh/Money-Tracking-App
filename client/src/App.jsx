@@ -10,14 +10,17 @@ import Transactions from "./components/transactions/Transactions";
 
 function App() {
   const [balance, setBalance] = useState(0);
+  let balanceRupees = Math.floor(Math.abs(balance));
+  let balancePaise = (Math.abs(balance) - balanceRupees) * 100;
 
   return (
     <div className="app">
       <h1>
-        Your Balance:
-        <br />
-        {balance < 0 ? "-" : ""}&#8377;{Math.abs(balance)}
-        <span>.00</span>
+        <span className="symbol">{balance < 0 ? "-" : ""}&#8377;</span>
+        <span className="amount">{balanceRupees}</span>
+        <span className="paise">
+          {Math.round(balancePaise) > 0 ? Math.round(balancePaise) : null}
+        </span>
       </h1>
 
       <FormComponent />

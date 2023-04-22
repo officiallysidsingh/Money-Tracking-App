@@ -5,5 +5,19 @@
     text-align: center;
     color: #fff;
     margin: 0;
+    .symbol {
+      font-size: 3.5rem;
+      margin-right: 0.1rem;
+    }
+    .amount {
+      font-size: 3rem;
+      margin-right: 0.2rem;
+      position: relative;
+    }
+    .paise {
+      font-size: 1.6rem;
+      position: absolute;
+      top: 2.6rem;
+    }
   }
 }
