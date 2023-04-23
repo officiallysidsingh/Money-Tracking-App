@@ -10,6 +10,8 @@ import { useState } from "react";
 // Stylesheet
 import "./style.scss";
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 const FormComponent = ({ openEdit }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -21,12 +23,12 @@ const FormComponent = ({ openEdit }) => {
     let priceToNumber = Number(price);
 
     //Post the data to the server
-    await axios.post("http://localhost:3000/api/transaction", {
+    await axios.post(`${BASE_URL}/transaction`, {
       name: name,
       price: priceToNumber,
       description: description,
     });
-    mutate("http://localhost:3000/api/transaction");
+    mutate(`${BASE_URL}/transaction`);
     setName("");
     setPrice("");
     setDescription("");
