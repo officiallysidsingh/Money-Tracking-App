@@ -8,8 +8,8 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 
 // Custom Components
-import EditComponent from "../editButton/EditButton";
-import DeleteComponent from "../deleteButton/DeleteButton";
+import EditButton from "../editButton/EditButton";
+import DeleteButton from "../deleteButton/DeleteButton";
 import EditForm from "../editForm/EditForm";
 
 // Stylesheet
@@ -21,6 +21,10 @@ const getTransactions = (url) => fetch(url).then((res) => res.json());
 const Transactions = ({ setBalance }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [formId, setFormId] = useState("");
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
 
   const { data, error, isLoading } = useSWR(
     "http://localhost:3000/api/transaction",
@@ -53,7 +57,12 @@ const Transactions = ({ setBalance }) => {
           setOpenEdit={setOpenEdit}
           formId={formId}
           setFormId={setFormId}
-          data={data}
+          name={name}
+          setName={setName}
+          description={description}
+          setDescription={setDescription}
+          price={price}
+          setPrice={setPrice}
         />
       </div>
       {data?.map((item) => (
@@ -64,10 +73,16 @@ const Transactions = ({ setBalance }) => {
           <div className="transaction">
             <div className="left">
               <div className="editComponent">
-                <EditComponent
+                <EditButton
                   setOpenEdit={setOpenEdit}
                   id={item._id}
                   setFormId={setFormId}
+                  name={item.name}
+                  setName={setName}
+                  description={item.description}
+                  setDescription={setDescription}
+                  price={item.price}
+                  setPrice={setPrice}
                 />
               </div>
               <div className="name">{item.name}</div>
@@ -75,7 +90,7 @@ const Transactions = ({ setBalance }) => {
             </div>
             <div className="right">
               <div className="deleteComponent">
-                <DeleteComponent id={item._id} />
+                <DeleteButton id={item._id} />
               </div>
               <div className={`price ${item.price > 0 ? "green" : "red"}`}>
                 {item.price < 0 ? "-" : ""} &#8377;{Math.abs(item.price)}
