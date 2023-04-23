@@ -1,5 +1,5 @@
-// React Hooks
-import { useEffect, useState } from "react";
+// SWR
+import { mutate } from "swr";
 
 // Axios
 import axios from "axios";
@@ -37,6 +37,8 @@ const EditForm = ({
           description,
         }
       );
+      mutate("http://localhost:3000/api/transaction");
+      setOpenEdit(false);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -73,8 +75,10 @@ const EditForm = ({
             placeholder={"Bought A New TV"}
           />
         </div>
-        <button type="submit">Edit Transaction</button>
-        <button type="button" onClick={handleCancel}>
+        <button type="submit" className="edit">
+          Edit Transaction
+        </button>
+        <button type="button" className="cancel" onClick={handleCancel}>
           Cancel
         </button>
       </form>

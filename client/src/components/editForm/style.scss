@@ -31,7 +31,13 @@
       border: 0;
       border-radius: 5px;
       padding: 5px;
-      background-color: #ddd;
+      font-size: 1rem;
+      &.edit {
+        background-color: #1c1;
+      }
+      &.cancel {
+        background-color: #c11;
+      }
     }
   }
 }
