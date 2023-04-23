@@ -10,7 +10,7 @@ import { useState } from "react";
 // Stylesheet
 import "./style.scss";
 
-const FormComponent = () => {
+const FormComponent = ({ openEdit }) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -33,7 +33,7 @@ const FormComponent = () => {
   }
 
   return (
-    <form onSubmit={addNewTransaction}>
+    <form onSubmit={addNewTransaction} className={openEdit ? "hide" : ""}>
       <div className="basic">
         <input
           type="text"

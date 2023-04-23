@@ -18,8 +18,7 @@ import "./style.scss";
 // getTransactions Fetcher Function to get all the transaction records
 const getTransactions = (url) => fetch(url).then((res) => res.json());
 
-const Transactions = ({ setBalance }) => {
-  const [openEdit, setOpenEdit] = useState(false);
+const Transactions = ({ setBalance, openEdit, setOpenEdit }) => {
   const [formId, setFormId] = useState("");
 
   const [name, setName] = useState("");

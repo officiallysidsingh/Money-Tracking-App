@@ -10,6 +10,8 @@ import Transactions from "./components/transactions/Transactions";
 
 function App() {
   const [balance, setBalance] = useState(0);
+  const [openEdit, setOpenEdit] = useState(false);
+
   let balanceRupees = Math.floor(Math.abs(balance));
   let balancePaise = (Math.abs(balance) - balanceRupees) * 100;
 
@@ -23,9 +25,13 @@ function App() {
         </span>
       </h1>
 
-      <FormComponent />
+      <FormComponent openEdit={openEdit} />
 
-      <Transactions setBalance={setBalance} />
+      <Transactions
+        setBalance={setBalance}
+        openEdit={openEdit}
+        setOpenEdit={setOpenEdit}
+      />
     </div>
   );
 }
