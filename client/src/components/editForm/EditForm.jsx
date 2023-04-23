@@ -7,6 +7,8 @@ import axios from "axios";
 // Stylesheet
 import "./style.scss";
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 const EditForm = ({
   openEdit,
   setOpenEdit,
@@ -29,15 +31,12 @@ const EditForm = ({
     let priceToNumber = Number(price);
 
     try {
-      const res = await axios.put(
-        `http://localhost:3000/api/transaction/${id}`,
-        {
-          name,
-          price: priceToNumber,
-          description,
-        }
-      );
-      mutate("http://localhost:3000/api/transaction");
+      const res = await axios.put(`${BASE_URL}/transaction/${id}`, {
+        name,
+        price: priceToNumber,
+        description,
+      });
+      mutate(`${BASE_URL}/transaction`);
       setOpenEdit(false);
       console.log(res);
     } catch (err) {
