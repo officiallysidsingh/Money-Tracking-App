@@ -16,7 +16,7 @@ import EditForm from "../editForm/EditForm";
 import "./style.scss";
 
 // getTransactions Fetcher Function to get all the transaction records
-const getTransactions = (url) => fetch(url).then((res) => res.json());
+const getTransactions = (url) => axios.get(url).then((res) => res.data);
 
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
