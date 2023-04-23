@@ -1,4 +1,8 @@
 .editFormContainer {
+  margin: 10rem auto;
+  &.hide {
+    display: none;
+  }
 }
 .transactions {
   margin-top: 10px;

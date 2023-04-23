@@ -50,7 +50,7 @@ const Transactions = ({ setBalance, openEdit, setOpenEdit }) => {
 
   return (
     <>
-      <div className="editFormContainer">
+      <div className={`editFormContainer ${openEdit ? "" : "hide"}`}>
         <EditForm
           openEdit={openEdit}
           setOpenEdit={setOpenEdit}
