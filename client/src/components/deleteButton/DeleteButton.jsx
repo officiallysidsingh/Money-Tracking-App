@@ -10,11 +10,13 @@ import { MdDelete } from "react-icons/md";
 // Stylesheet
 import "./style.scss";
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 const DeleteComponent = ({ id }) => {
   //Handling Delete Request
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3000/api/transaction/${id}`);
-    mutate("http://localhost:3000/api/transaction");
+    await axios.delete(`${BASE_URL}/transaction/${id}`);
+    mutate(`${BASE_URL}/transaction`);
   };
   return (
     <>
