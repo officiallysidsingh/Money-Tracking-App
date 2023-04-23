@@ -18,6 +18,8 @@ import "./style.scss";
 // getTransactions Fetcher Function to get all the transaction records
 const getTransactions = (url) => fetch(url).then((res) => res.json());
 
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+
 const Transactions = ({ setBalance, openEdit, setOpenEdit }) => {
   const [formId, setFormId] = useState("");
 
@@ -26,7 +28,7 @@ const Transactions = ({ setBalance, openEdit, setOpenEdit }) => {
   const [price, setPrice] = useState(0);
 
   const { data, error, isLoading } = useSWR(
-    "http://localhost:3000/api/transaction",
+    `${BASE_URL}/transaction`,
     getTransactions,
     {
       onSuccess: (data) =>
