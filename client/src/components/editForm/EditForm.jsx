@@ -4,6 +4,9 @@ import { mutate } from "swr";
 // Axios
 import axios from "axios";
 
+// Toast
+import { toast } from "react-hot-toast";
+
 // Stylesheet
 import "./style.scss";
 

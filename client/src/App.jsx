@@ -1,6 +1,9 @@
 //React Hooks
 import { useState } from "react";
 
+// React Hot Toast
+import Toaster from "react-hot-toast";
+
 // Stylesheet
 import "./App.scss";
 
